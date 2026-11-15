@@ -1,0 +1,129 @@
+{
+  "_meta": {
+    "notice": "FICTIONAL webhook deliveries for the local simulator. Nothing here was received from a real Zendesk account.",
+    "shape": "Modeled on Zendesk event-subscription webhooks (type, subject, detail, event, time, id). Field names are simplified; verify against current Zendesk docs before building a real endpoint.",
+    "as_of": "2026-11-10"
+  },
+  "events": [
+    {
+      "name": "new_ticket",
+      "description": "A customer opens a new ticket asking where order #1042 is.",
+      "payload": {
+        "id": "evt_01JCN5001A",
+        "type": "zen:event-type:ticket.created",
+        "subject": "zen:ticket:5001",
+        "time": "2026-11-10T14:02:03Z",
+        "account_id": 10001,
+        "zendesk_event_version": "2022-11-06",
+        "detail": {"id": "5001", "requester_id": "9001", "subject": "Where is my order #1042?", "status": "NEW", "created_at": "2026-11-10T14:02:00Z"},
+        "event": {}
+      }
+    },
+    {
+      "name": "follow_up",
+      "description": "Priya replies to her earlier ticket with the order number we needed.",
+      "payload": {
+        "id": "evt_01JCN5003B",
+        "type": "zen:event-type:ticket.comment_added",
+        "subject": "zen:ticket:5003",
+        "time": "2026-11-10T15:40:02Z",
+        "account_id": 10001,
+        "zendesk_event_version": "2022-11-06",
+        "detail": {"id": "5003", "requester_id": "9003", "subject": "When will my order arrive?", "status": "OPEN", "created_at": "2026-11-10T14:12:00Z"},
+        "event": {
+          "comment": {
+            "id": "50032",
+            "body": "Sorry, forgot to include it. It's order #1044.",
+            "is_public": true,
+            "created_at": "2026-11-10T15:40:00Z",
+            "author": {"id": "9003", "name": "Priya Raman", "is_staff": false}
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate_delivery",
+      "description": "Zendesk retries the new_ticket delivery (same event id). The simulator must skip it if new_ticket was already processed.",
+      "payload": {
+        "id": "evt_01JCN5001A",
+        "type": "zen:event-type:ticket.created",
+        "subject": "zen:ticket:5001",
+        "time": "2026-11-10T14:02:03Z",
+        "account_id": 10001,
+        "zendesk_event_version": "2022-11-06",
+        "detail": {"id": "5001", "requester_id": "9001", "subject": "Where is my order #1042?", "status": "NEW", "created_at": "2026-11-10T14:02:00Z"},
+        "event": {}
+      }
+    },
+    {
+      "name": "escalation_worthy",
+      "description": "Jordan's third message about the same missing package: frustrated, repeat contact, refund demand.",
+      "payload": {
+        "id": "evt_01JCN5002C",
+        "type": "zen:event-type:ticket.comment_added",
+        "subject": "zen:ticket:5002",
+        "time": "2026-11-10T13:55:02Z",
+        "account_id": 10001,
+        "zendesk_event_version": "2022-11-06",
+        "detail": {"id": "5002", "requester_id": "9002", "subject": "Package never arrived - order 1043", "status": "OPEN", "created_at": "2026-10-29T15:10:00Z"},
+        "event": {
+          "comment": {
+            "id": "50024",
+            "body": "This is ridiculous. I've contacted you THREE times and my package still hasn't arrived. I want my money back!",
+            "is_public": true,
+            "created_at": "2026-11-10T13:55:00Z",
+            "author": {"id": "9002", "name": "Jordan Ellis", "is_staff": false}
+          }
+        }
+      }
+    },
+    {
+      "name": "human_request",
+      "description": "A new ticket about a damaged lamp where the customer asks for a person.",
+      "payload": {
+        "id": "evt_01JCN5007D",
+        "type": "zen:event-type:ticket.created",
+        "subject": "zen:ticket:5007",
+        "time": "2026-11-10T15:45:02Z",
+        "account_id": 10001,
+        "zendesk_event_version": "2022-11-06",
+        "detail": {"id": "5007", "requester_id": "9007", "subject": "Lamp arrived broken - want to talk to a person", "status": "NEW", "created_at": "2026-11-10T15:45:00Z"},
+        "event": {}
+      }
+    },
+    {
+      "name": "staff_comment",
+      "description": "A Northstar staff member adds a comment. The handler ignores staff-authored comments so the agent never replies to itself or to colleagues.",
+      "payload": {
+        "id": "evt_01JCN5009E",
+        "type": "zen:event-type:ticket.comment_added",
+        "subject": "zen:ticket:5009",
+        "time": "2026-11-10T16:30:02Z",
+        "account_id": 10001,
+        "zendesk_event_version": "2022-11-06",
+        "detail": {"id": "5009", "requester_id": "9009", "subject": "Order 1049 running late", "status": "OPEN", "created_at": "2026-11-10T16:10:00Z"},
+        "event": {
+          "comment": {
+            "id": "50092",
+            "body": "Internal: weather delays across Colorado this week.",
+            "is_public": false,
+            "created_at": "2026-11-10T16:30:00Z",
+            "author": {"id": "101", "name": "Morgan Reyes", "is_staff": true}
+          }
+        }
+      }
+    },
+    {
+      "name": "malformed",
+      "description": "A broken delivery with no ticket subject. The handler rejects it during validation.",
+      "payload": {
+        "id": "evt_01JCN0000F",
+        "type": "zen:event-type:ticket.created",
+        "time": "2026-11-10T17:00:00Z",
+        "account_id": 10001,
+        "detail": {},
+        "event": {}
+      }
+    }
+  ]
+}

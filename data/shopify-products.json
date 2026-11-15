@@ -1,0 +1,198 @@
+{
+  "_meta": {
+    "notice": "FICTIONAL DATA for the Northstar Supply teaching project. Not a real store, products, or prices.",
+    "shape": "Simplified, normalized version of Shopify Admin GraphQL Product objects. See docs/integrating-shopify.md.",
+    "as_of": "2026-11-10"
+  },
+  "products": [
+    {
+      "id": "gid://shopify/Product/7001",
+      "product_id": "7001",
+      "handle": "trailhead-insulated-bottle-24oz",
+      "title": "Trailhead Insulated Bottle 24 oz",
+      "sku": "NS-BTL-24",
+      "price": "34.00",
+      "status": "ACTIVE",
+      "product_type": "Drinkware",
+      "description": "Double-wall vacuum insulated stainless steel bottle with a leak-proof flip lid.",
+      "specifications": {
+        "capacity": "24 oz (710 ml)",
+        "material": "18/8 stainless steel, BPA-free lid",
+        "insulation": "Keeps drinks cold up to 24 hours and hot up to 12 hours",
+        "base_diameter": "2.9 in (74 mm) — fits most standard car cup holders",
+        "height": "10.2 in",
+        "weight": "13 oz"
+      },
+      "care": "Lid is top-rack dishwasher safe. Hand-wash the bottle body; dishwashers can damage the vacuum seal.",
+      "warranty": "24 months",
+      "final_sale": false,
+      "returnable_if_opened": true,
+      "inventory": {"available": 214, "restock_date": null},
+      "troubleshooting_doc": "faqs/products/troubleshooting.md"
+    },
+    {
+      "id": "gid://shopify/Product/7002",
+      "product_id": "7002",
+      "handle": "lumen-rechargeable-desk-lamp",
+      "title": "Lumen Rechargeable Desk Lamp",
+      "sku": "NS-LMP-01",
+      "price": "59.00",
+      "status": "ACTIVE",
+      "product_type": "Lighting",
+      "description": "Cordless LED desk lamp with three color temperatures and five brightness levels.",
+      "specifications": {
+        "battery": "4000 mAh lithium-ion",
+        "runtime": "Up to 10 hours at 50% brightness",
+        "charging": "USB-C; use an adapter rated 5V/2A or higher; full charge in about 4 hours",
+        "color_temperatures": "2700K warm, 4000K neutral, 5500K daylight",
+        "brightness_levels": "5",
+        "dimensions": "15.5 in tall, 5 in base"
+      },
+      "care": "Wipe with a dry cloth. Do not submerge or charge near water.",
+      "warranty": "12 months",
+      "final_sale": false,
+      "returnable_if_opened": true,
+      "inventory": {"available": 88, "restock_date": null},
+      "troubleshooting_doc": "faqs/products/troubleshooting.md",
+      "troubleshooting": [
+        "Won't turn on: charge 2 hours with a 5V/2A USB-C adapter, then hold power 10 seconds to reset.",
+        "Flickering: normal below 10% battery; if plugged in, switch to a 5V/2A adapter; reset by holding power 10 seconds.",
+        "Still flickering when fully charged on a 5V/2A adapter: likely defective — return (30 days) or warranty claim (12 months).",
+        "Hot to the touch, swelling, burning smell: stop using immediately and escalate (safety)."
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/7003",
+      "product_id": "7003",
+      "handle": "cloudrest-cotton-throw-blanket",
+      "title": "Cloudrest Cotton Throw Blanket",
+      "sku": "NS-BLK-50",
+      "price": "79.00",
+      "status": "ACTIVE",
+      "product_type": "Home",
+      "description": "Soft, breathable 100% cotton waffle-knit throw.",
+      "specifications": {
+        "size": "50 x 60 in",
+        "material": "100% cotton",
+        "colors": "Oat, Slate, Forest"
+      },
+      "care": "Machine wash cold, tumble dry low.",
+      "warranty": "90 days",
+      "final_sale": false,
+      "returnable_if_opened": true,
+      "inventory": {"available": 0, "restock_date": "2026-11-18"},
+      "troubleshooting_doc": null
+    },
+    {
+      "id": "gid://shopify/Product/7004",
+      "product_id": "7004",
+      "handle": "everyday-canvas-tote",
+      "title": "Everyday Canvas Tote",
+      "sku": "NS-TOT-01",
+      "price": "28.00",
+      "status": "ACTIVE",
+      "product_type": "Bags",
+      "description": "Heavyweight canvas tote with an inner zip pocket.",
+      "specifications": {
+        "material": "16 oz cotton canvas",
+        "dimensions": "15 x 16 x 5 in",
+        "strap_drop": "11 in"
+      },
+      "care": "Spot clean with mild soap.",
+      "warranty": "90 days",
+      "final_sale": false,
+      "returnable_if_opened": true,
+      "inventory": {"available": 342, "restock_date": null},
+      "troubleshooting_doc": null
+    },
+    {
+      "id": "gid://shopify/Product/7005",
+      "product_id": "7005",
+      "handle": "brewline-pour-over-coffee-kit",
+      "title": "Brewline Pour-Over Coffee Kit",
+      "sku": "NS-BRW-01",
+      "price": "45.00",
+      "status": "ACTIVE",
+      "product_type": "Kitchen",
+      "description": "Glass carafe with a reusable stainless steel filter for pour-over coffee.",
+      "specifications": {
+        "capacity": "600 ml (about 4 cups)",
+        "materials": "Borosilicate glass carafe, stainless steel mesh filter, cork collar",
+        "filter": "Reusable — no paper filters needed"
+      },
+      "care": "Hand-wash recommended. Remove cork collar before washing.",
+      "warranty": "90 days",
+      "final_sale": false,
+      "returnable_if_opened": true,
+      "inventory": {"available": 57, "restock_date": null},
+      "troubleshooting_doc": null
+    },
+    {
+      "id": "gid://shopify/Product/7006",
+      "product_id": "7006",
+      "handle": "nimbus-wireless-earbuds",
+      "title": "Nimbus Wireless Earbuds",
+      "sku": "NS-EAR-02",
+      "price": "89.00",
+      "status": "ACTIVE",
+      "product_type": "Audio",
+      "description": "Compact true-wireless earbuds with a pocket charging case.",
+      "specifications": {
+        "bluetooth": "5.3",
+        "battery": "6 hours per charge, 24 hours total with case",
+        "water_resistance": "IPX4 (sweat and splash resistant, not waterproof)",
+        "charging": "USB-C case"
+      },
+      "care": "Clean tips with a dry cloth. Keep the case dry.",
+      "warranty": "12 months",
+      "final_sale": false,
+      "returnable_if_opened": false,
+      "inventory": {"available": 41, "restock_date": null},
+      "troubleshooting_doc": "faqs/products/troubleshooting.md"
+    },
+    {
+      "id": "gid://shopify/Product/7007",
+      "product_id": "7007",
+      "handle": "harbor-ceramic-mug-set-clearance",
+      "title": "Harbor Ceramic Mug Set (4) — Clearance",
+      "sku": "NS-MUG-4C",
+      "price": "24.00",
+      "status": "ACTIVE",
+      "product_type": "Kitchen",
+      "description": "Set of four 12 oz stoneware mugs. Clearance — final sale.",
+      "specifications": {
+        "capacity": "12 oz each",
+        "material": "Stoneware",
+        "microwave_safe": "Yes",
+        "dishwasher_safe": "Yes"
+      },
+      "care": "Dishwasher and microwave safe.",
+      "warranty": "90 days",
+      "final_sale": true,
+      "returnable_if_opened": false,
+      "inventory": {"available": 19, "restock_date": null},
+      "troubleshooting_doc": null
+    },
+    {
+      "id": "gid://shopify/Product/7008",
+      "product_id": "7008",
+      "handle": "northstar-digital-gift-card",
+      "title": "Northstar Digital Gift Card",
+      "sku": "NS-GIFT-50",
+      "price": "50.00",
+      "status": "ACTIVE",
+      "product_type": "Gift Card",
+      "description": "Digital gift card delivered by email. Never expires.",
+      "specifications": {
+        "delivery": "Email, within 1 hour of purchase",
+        "expiration": "None"
+      },
+      "care": null,
+      "warranty": "n/a",
+      "final_sale": true,
+      "returnable_if_opened": false,
+      "inventory": {"available": null, "restock_date": null},
+      "troubleshooting_doc": null
+    }
+  ]
+}
