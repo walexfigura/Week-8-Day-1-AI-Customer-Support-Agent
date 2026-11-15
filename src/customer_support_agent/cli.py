@@ -17,6 +17,7 @@ import json
 import sys
 import textwrap
 from datetime import datetime, timezone
+from pathlib import Path
 
 from .config import MissingCredentialsError, Settings
 from .models import AgentResult
@@ -350,14 +351,20 @@ def cmd_build_skill(args: argparse.Namespace, settings: Settings) -> int:
     from .skill_builder import SkillValidationError, build_skill, verify_zip
 
     try:
-        report = build_skill(settings.project_root)
+        out_dir = Path(args.out).resolve() if args.out else None
+        report = build_skill(settings.project_root, out_dir)
         names = verify_zip(report.zip_path)
     except SkillValidationError as exc:
         print(red(f"Skill validation failed: {exc}"))
         return 1
     for warning in report.warnings:
         print(yellow(f"warning: {warning}"))
-    print(green(f"Built {report.zip_path.relative_to(settings.project_root)} ({len(names)} files)"))
+    shown = (
+        report.zip_path.relative_to(settings.project_root)
+        if report.zip_path.is_relative_to(settings.project_root)
+        else report.zip_path
+    )
+    print(green(f"Built {shown} ({len(names)} files)"))
     print(dim("Top level: customer-support/SKILL.md + references/ (guides, knowledge-base, workflows, sample-data)"))
     print("Upload it in Claude: Settings → Capabilities → Skills → Upload skill. See README 'Using the Claude Skill'.")
     return 0
@@ -421,6 +428,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_approvals)
 
     p = sub.add_parser("build-skill", help="Build dist/customer-support-skill.zip")
+    p.add_argument("--out", help="Output folder (default: dist). Maintainers: --out claude-skill updates the download")
     p.set_defaults(func=cmd_build_skill)
     return parser
 

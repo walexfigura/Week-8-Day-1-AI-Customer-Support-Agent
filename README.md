@@ -11,6 +11,9 @@ drafts a reply for a person to review.
 It also includes a **Claude Skill** that teaches Claude the same support
 workflow, so you can try the ideas without writing any code.
 
+> 📦 **Just want the Claude Skill?** [Download `customer-support-skill.zip`](https://github.com/walexfigura/Week-8-Day-1-AI-Customer-Support-Agent/raw/main/claude-skill/customer-support-skill.zip)
+> and follow [Using the Claude Skill](#using-the-claude-skill).
+
 > ⚠️ **Everything here is fictional and educational.** Northstar Supply, its
 > customers, orders, and policies are invented. The agent never sends
 > messages, issues refunds, or changes orders. It is not production-ready.
@@ -153,9 +156,11 @@ Week-8-Day-1-AI-Customer-Support-Agent/
 │   ├── cli.py, smoke.py      ←   commands and offline diagnostics
 │   └── …                     ←   config, models, logging, data checks, skill builder
 ├── evals/                    ← 14 agent behavior scenarios + runner
-├── tests/                    ← 135 offline unit tests (pytest)
-├── claude-skill/customer-support/  ← the Claude Skill source (SKILL.md + reference guides)
-├── scripts/build_skill.py    ← builds dist/customer-support-skill.zip
+├── tests/                    ← 136 offline unit tests (pytest)
+├── claude-skill/
+│   ├── customer-support/     ←   the Claude Skill source (SKILL.md + reference guides)
+│   └── customer-support-skill.zip ← ready-to-upload Skill (direct download)
+├── scripts/build_skill.py    ← builds the Skill ZIP
 └── docs/                     ← architecture, integrations, production notes, troubleshooting
 ```
 
@@ -438,7 +443,12 @@ on escalation, draft a reply. It contains `SKILL.md` (the core instructions) and
 `references/` (guides, plus copies of the knowledge base, workflows, and sample
 data). Claude reads references only when needed.
 
-### 1. Build the ZIP
+### 1. Get the ZIP
+
+**Option A: download it.** [Download `customer-support-skill.zip`](https://github.com/walexfigura/Week-8-Day-1-AI-Customer-Support-Agent/raw/main/claude-skill/customer-support-skill.zip).
+No Python needed.
+
+**Option B: build it yourself** (after changing policies or the Skill):
 
 ```bash
 python run.py build-skill
@@ -446,13 +456,17 @@ python run.py build-skill
 
 This validates `SKILL.md`, copies the authoritative policies, workflows, and
 sample data into the package, and writes **`dist/customer-support-skill.zip`**
-with a single top-level `customer-support/` folder. (Always upload the built
-ZIP; zipping `claude-skill/` by hand would miss the copied references.)
+with a single top-level `customer-support/` folder. (Always upload a built
+ZIP; zipping the `claude-skill/customer-support/` folder by hand would miss the copied references.)
+
+*Maintainers:* after editing anything that goes into the Skill, refresh the
+downloadable copy with `python run.py build-skill --out claude-skill` and
+commit it. A test fails if the committed ZIP falls out of date.
 
 ### 2. Upload it to Claude
 
 1. In Claude, open **Settings → Capabilities** and make sure Skills (and code execution, if required on your plan) are enabled.
-2. In the **Skills** section, choose **Upload skill** and select `dist/customer-support-skill.zip`.
+2. In the **Skills** section, choose **Upload skill** and select the ZIP.
 3. Make sure the `customer-support` skill is toggled on.
 
 Custom Skills require a paid Claude plan. Menu names change occasionally; if
@@ -552,7 +566,7 @@ There are two kinds of testing here, and the difference matters.
 pytest
 ```
 
-135 tests cover order lookups and delivery math, customer authorization and
+136 tests cover order lookups and delivery math, customer authorization and
 data minimization, policy retrieval and cross-document consistency, missing
 records, webhook signatures/validation/duplicates, approval enforcement
 (including "the agent can't approve its own request"), escalation rules, draft
@@ -598,7 +612,7 @@ prompt, a policy, or the model.
 | `Unknown scenario` | `python run.py demo --list` |
 | `order_not_found_for_requester` for an order that exists | That order belongs to a different customer than the ticket's requester; this is the privacy check working |
 | Webhook shows `DUPLICATE` | Already processed; add `--reset` |
-| Claude Skill won't upload or trigger | Upload the built `dist/customer-support-skill.zip`; enable Skills in Settings; mention "support ticket" in your message |
+| Claude Skill won't upload or trigger | Upload the downloaded or built `customer-support-skill.zip` (not a hand-made ZIP); enable Skills in Settings; mention "support ticket" in your message |
 
 More: [`docs/troubleshooting.md`](docs/troubleshooting.md).
 

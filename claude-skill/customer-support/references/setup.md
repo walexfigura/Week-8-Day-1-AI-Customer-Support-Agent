@@ -61,7 +61,7 @@ the connector read-only means a manipulated conversation cannot cause harm.
 
 ## Installing in Claude
 
-1. In the source repository run `python run.py build-skill` → `dist/customer-support-skill.zip`.
+1. Download the ZIP from https://github.com/walexfigura/Week-8-Day-1-AI-Customer-Support-Agent/raw/main/claude-skill/customer-support-skill.zip, or in the source repository run `python run.py build-skill` → `dist/customer-support-skill.zip`.
 2. In Claude, open **Settings → Capabilities** and make sure Skills (and code
    execution, if your plan requires it for Skills) are enabled.
 3. Under **Skills**, choose **Upload skill** and select the ZIP.

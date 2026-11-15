@@ -69,7 +69,7 @@ Model behavior varies. When `python run.py eval` reports a failure:
 
 | Symptom | Fix |
 |---|---|
-| Upload rejected | Upload `dist/customer-support-skill.zip` produced by `python run.py build-skill` — not the `claude-skill/` folder zipped by hand (it lacks the copied references) |
+| Upload rejected | Upload `claude-skill/customer-support-skill.zip` (the download) or `dist/customer-support-skill.zip` from `python run.py build-skill`, not the `claude-skill/customer-support/` folder zipped by hand (it lacks the copied references) |
 | "Could not find SKILL.md" | The ZIP must contain `customer-support/SKILL.md` (one top-level folder). The build script verifies this |
 | Skill never triggers | Mention support tickets explicitly ("Use the customer-support skill to handle this ticket: …"); check the Skill is toggled on in Settings |
 | Skills option not visible | Custom Skills require a paid plan and the Skills/code-execution capability enabled in Settings → Capabilities |

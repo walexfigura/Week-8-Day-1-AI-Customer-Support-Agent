@@ -75,3 +75,17 @@ def test_build_skill(capsys):
     assert "customer-support/references/workflows/escalation.md" in names
     assert "customer-support/references/sample-data/shopify-orders.json" in names
     assert {n.split("/")[0] for n in names} == {"customer-support"}
+
+
+def test_committed_skill_zip_is_up_to_date(tmp_path):
+    """The downloadable claude-skill/customer-support-skill.zip must match the current sources.
+
+    If this fails, rebuild it with:  python run.py build-skill --out claude-skill
+    """
+    from customer_support_agent.skill_builder import build_skill, zip_contents
+
+    root = find_project_root()
+    committed = root / "claude-skill" / "customer-support-skill.zip"
+    assert committed.exists(), "Run: python run.py build-skill --out claude-skill"
+    fresh = build_skill(root, tmp_path).zip_path
+    assert zip_contents(committed) == zip_contents(fresh), "Run: python run.py build-skill --out claude-skill"

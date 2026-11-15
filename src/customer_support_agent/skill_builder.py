@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import re
 import shutil
+import tempfile
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -29,7 +30,6 @@ FIXED_ZIP_TIME = (2026, 11, 10, 0, 0, 0)  # reproducible archives
 @dataclass
 class BuildReport:
     zip_path: Path
-    staging_dir: Path
     files: list[str]
     warnings: list[str]
 
@@ -70,14 +70,17 @@ def validate_skill_md(path: Path, folder_name: str) -> tuple[list[str], list[str
 def build_skill(project_root: Path, out_dir: Path | None = None) -> BuildReport:
     source = project_root / "claude-skill" / SKILL_NAME
     out_dir = out_dir or (project_root / "dist")
-    staging_root = out_dir / "skill-build"
-    staging = staging_root / SKILL_NAME
-
     warnings, referenced = validate_skill_md(source / "SKILL.md", source.name)
+    with tempfile.TemporaryDirectory() as tmp:  # staging never touches the output folder
+        zip_path, files = _stage_and_zip(project_root, source, Path(tmp), out_dir, referenced)
+    return BuildReport(zip_path, files, warnings)
 
-    if staging_root.exists():
-        shutil.rmtree(staging_root)
-    shutil.copytree(source, staging)
+
+def _stage_and_zip(
+    project_root: Path, source: Path, staging_root: Path, out_dir: Path, referenced: list[str]
+) -> tuple[Path, list[str]]:
+    staging = staging_root / SKILL_NAME
+    shutil.copytree(source, staging, ignore=shutil.ignore_patterns(".DS_Store", "__pycache__"))
 
     refs = staging / "references"
     shutil.copytree(project_root / "knowledge-base", refs / "knowledge-base")
@@ -106,7 +109,13 @@ def build_skill(project_root: Path, out_dir: Path | None = None) -> BuildReport:
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o644 << 16
             archive.writestr(info, path.read_bytes())
-    return BuildReport(zip_path, staging, [p.relative_to(staging_root).as_posix() for p in files], warnings)
+    return zip_path, [p.relative_to(staging_root).as_posix() for p in files]
+
+
+def zip_contents(zip_path: Path) -> dict[str, bytes]:
+    """File name -> content, with line endings normalized so a Windows checkout compares equal."""
+    with zipfile.ZipFile(zip_path) as archive:
+        return {n: archive.read(n).replace(b"\r\n", b"\n") for n in archive.namelist()}
 
 
 def verify_zip(zip_path: Path) -> list[str]:
