@@ -642,6 +642,4 @@ the [Shopify GraphQL Admin API](https://shopify.dev/docs/api/admin-graphql/lates
 customer-support agent design guidance. All business content, policies, data,
 code, and teaching material in this repository are original.
 
-**License:** no license has been chosen yet. Until one is added, the default
-copyright applies. *(Author: add a `LICENSE` file, e.g. MIT for code and CC BY
-for written material, when ready to publish.)*
+**License:** [MIT](LICENSE).
